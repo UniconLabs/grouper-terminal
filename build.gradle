@@ -1,6 +1,5 @@
 plugins {
     id 'org.springframework.boot' version '2.3.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
 }
 
@@ -12,15 +11,18 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket:2.3.2.RELEASE'
 
     ['grouper'].each {
-        implementation "edu.internet2.middleware.grouper:${it}:${project.'grouper.version'}"
+        implementation "edu.internet2.middleware.grouper:${it}:${project.'grouper.version'}", {
+            exclude module: 'slf4j-log4j12'
+            exclude module: 'xml-apis'
+        }
     }
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.2.RELEASE') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    compileOnly 'org.springframework.boot:spring-boot-devtools'
+    compileOnly 'org.springframework.boot:spring-boot-devtools:2.3.2.RELEASE'
 }
